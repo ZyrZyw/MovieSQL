@@ -1,0 +1,30 @@
+{% extends 'company.html' %}
+
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 class="display-4">出品公司查询</h1>
+        <p class="lead">工商信息、所在城市、曾出品电影等</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for x in api %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{x.avatar_url}}" class="card-img-top" alt="公司logo">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.login}}</h5>
+                        <p class="card-text">{{x.login}}的主页</p>
+                        <a href="{% url 'actor_detail'%}">进一步了解该公司</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <p>{{api}}</p>
+{% endblock %}
