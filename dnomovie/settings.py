@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'dnomovie',
         'HOST':'127.0.0.1',
         'USER':'root',
-        'PASSWORD':'password',
+        'PASSWORD':'lhd20001126',
     }
 }
 

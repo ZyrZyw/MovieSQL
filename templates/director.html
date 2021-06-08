@@ -1,3 +1,15 @@
+{% extends 'base.html'%}
+{% block title %}导演{% endblock %}
+{% block botton %} 
+<li class="active"><a href="{% url 'index' %}">首页</a></li>
+<!--it doesn't work, why?-->
+<li><a href="{% url 'getmovielist' %}">电影池</a></li>
+<li><a href="{% url 'actor_home' %}">演员</a></li>
+<li><a href="{% url 'director_home' %}">导演</a></li>
+<li><a href="{% url 'company_home' %}">出品公司</a></li>
+<li><a href="{% url 'questions' %}">找片问答区</a></li>
+<li><a href="{% url 'webchat' %}">MovieSQL论坛</a></li>
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
