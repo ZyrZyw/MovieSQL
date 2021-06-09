@@ -3,7 +3,15 @@
 {% load i18n %}
 
 {% load humanize %}
-
+{% block button %}
+<li><a href="{% url 'index' %}">首页</a></li>
+<li><a href="{% url 'getmovielist' %}">电影池</a></li>
+<li><a href="{% url 'actor_home' %}">演员</a></li>
+<li><a href="{% url 'director_home' %}">导演</a></li>
+<li><a href="{% url 'company_home' %}">出品公司</a></li>
+<li class="current"><a href="{% url 'questions' %}" class="active">找片问答区</a></li>
+<li><a href="{% url 'webchat' %}">MovieSQL论坛</a></li>
+{% endblock %}
 {% block head %}
   <link href="{% static 'css/questions.css' %}" rel="stylesheet">
   <script src="{% static 'js/questions.js' %}"></script>

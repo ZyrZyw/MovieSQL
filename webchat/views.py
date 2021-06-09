@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse
 import json,queue,datetime
-from webuser.models import Webuser
+from webuser.models import UserInfo
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .models import ChatGroup
@@ -17,7 +17,7 @@ def contacts(request):
     contacts = request.user.webuser.friends.select_related().values('id','user__username','online')
 
     for i in contacts:
-        webuser = Webuser.objects.get(pk=i['id'])
+        webuser = UserInfo.objects.get(pk=i['id'])
         i["pictures"] = webuser.get_picture()
     print(contacts)
     contact_dic['contact_list'] = list(contacts)
@@ -33,7 +33,7 @@ def newmsg(request):
         data = json.loads(request.POST.get('data'))
         send_to = data['to']
         if send_to not in GLOBAL_MQ:
-            GLOBAL_MQ[send_to] = Queue.Queue()
+            GLOBAL_MQ[send_to] = queue.Queue()
         data['timestamp'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         GLOBAL_MQ[send_to].put(data)
         print(GLOBAL_MQ)
@@ -52,6 +52,6 @@ def newmsg(request):
             for i in range(stored_ms_nums):
                 msg_list.append(GLOBAL_MQ[request_user_id].get())
         else:
-            GLOBAL_MQ[request_user_id]=Queue.Queue()
+            GLOBAL_MQ[request_user_id]=queue.Queue()
         print(msg_list)
         return HttpResponse(json.dumps(msg_list))

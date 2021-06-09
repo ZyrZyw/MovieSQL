@@ -16,6 +16,5 @@ urlpatterns = [
     url(r'^password/$',views.password,name='password'),
     url(r'^changeemail/$',views.changeemail,name='changeemail'),
     url(r'^getuserinfo/(?P<userinfoid>\d+)/$',views.getuserinfo,name='getuserinfo'),
-    url(r'^addfriends/$',views.addfriends,name='addfriends'),
     url(r'^logout/$', LogoutView, {'next_page': '/'}, name='logout'),
 ]

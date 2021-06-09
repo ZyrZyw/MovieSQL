@@ -1,7 +1,7 @@
 #-*- coding: UTF-8 -*-
 __author__ = 'hadoop'
 from django import forms
-from .models import Movie
+from .models import FilmInfo
 from django.contrib import auth
 from django.utils.safestring import mark_safe
 #实现水平排列单选按钮
@@ -24,5 +24,5 @@ class MovieInfoForm(forms.ModelForm):
     language = forms.CharField(widget=forms.RadioSelect(choices=((u'0',u'中文'),(u'1',u'英文'),(u'2',u'韩语'),(u'3',u'日语'),(u'4',u'其它')),attrs={'class':'radio-inline'}),label=u'语言')
     image = forms.ImageField(label=u'上传图片')
     class Meta:
-        model = Movie
+        model = FilmInfo
         fields=['moviename','movieaddress','downloadlink','style','language','image']

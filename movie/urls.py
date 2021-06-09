@@ -10,7 +10,6 @@ urlpatterns=[
     url(r'^getlatestmovielist/(\d+)/$',views.getlatestmovielist,name='getlatestmovielist'),
     url(r'^getfilmfestlist/$',views.getfilmfestlist,name='getfilmfestlist'),
     url(r'^getfilmfestlist/(\d+)/$',views.getfilmfestlist,name='getfilmfestlist'),
-    url(r'^generatemoviehistory',views.generatemoviehistory,name='generatemoviehistory'),
     url(r'^searchmovie/$',views.searchmovie,name='searchmovie'),
     url(r'^addmovie/$',views.addmovie,name='addmovie'),
 ]

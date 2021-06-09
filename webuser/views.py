@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth,messages
-from .models import Webuser
+from .models import UserInfo
 from django.conf import settings as django_settings
 from PIL import Image
 # Create your views here.
@@ -24,11 +24,10 @@ def register(request):
             return render(request,'webuser/register.html',{'form':form})
         else:
             username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
             password=form.cleaned_data.get('password')
-            User.objects.create_user(username=username,password=password,email=email)
-            user = authenticate(username=username,password=password)
-            webuser = Webuser(user=user)
+            User.objects.create_user(nickname=username,key=password)
+            user = authenticate(nickname=username,key=password)
+            webuser = UserInfo(user=user)
             webuser.save()
             login(request,user)
             return redirect('/index')
@@ -58,7 +57,7 @@ def settings(request):
     if request.method =='POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            webuser = Webuser.objects.get(user=user)
+            webuser = UserInfo.objects.get(user=user)
             webuser.job_title=form.cleaned_data.get('job_title')
             webuser.location=form.cleaned_data.get('location')
             webuser.url = form.cleaned_data.get('url')
@@ -160,19 +159,3 @@ def save_uploaded_picture(request):
 def getuserinfo(request,userinfoid):
     user = User.objects.get(pk=userinfoid)
     return render(request,'webuser/userinfo.html',{'user':user})
-
-#加为好友
-@login_required
-def addfriends(request):
-    if request.method=='POST':
-        data = json.loads(request.POST.get('data'))
-        friendid = data['friendid']
-        actiontype = data['actiontype']
-        print(friendid,actiontype)
-        if actiontype == u'friend':
-            webuser = request.user.webuser
-            friend = Webuser.objects.get(pk=friendid)
-            webuser.friends.add(friend)
-        return HttpResponse('success')
-    else:
-        return HttpResponse('error')

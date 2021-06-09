@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth,messages
-from webuser.models import Webuser
+from webuser.models import UserInfo
 from django.conf import settings as django_settings
 from PIL import Image
 # Create your views here.
@@ -61,11 +61,10 @@ def register(request):
             return render(request,'webuser/register.html',{'form':form})
         else:
             username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password=form.cleaned_data.get('password')
-            User.objects.create_user(username=username,password=password,email=email)
+            key=form.cleaned_data.get('key')
+            User.objects.create_user(username=username,key=key)
             user = authenticate(username=username,password=password)
-            webuser = Webuser(user=user)
+            webuser = UserInfo(nickname=username, key=key)
             webuser.save()
             login(request,user)
             return redirect('/index')
@@ -95,22 +94,9 @@ def settings(request):
     if request.method =='POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            webuser = Webuser.objects.get(user=user)
-            webuser.job_title=form.cleaned_data.get('job_title')
-            webuser.location=form.cleaned_data.get('location')
-            webuser.url = form.cleaned_data.get('url')
-            webuser.likestyle=form.cleaned_data.get('likestyle')
-            webuser.sex=form.cleaned_data.get('sex')
+            webuser = UserInfo.objects.get(nickname=user)
             webuser.save()
             messages.add_message(request,messages.SUCCESS,u'您的资料已经编辑成功.')
-    else:
-        form = ProfileForm(instance=user,initial={
-            'job_title':user.webuser.job_title,
-            'url':user.webuser.url,
-            'location':user.webuser.location,
-            'sex':user.webuser.sex,
-            'likestyle':user.webuser.likestyle
-        })
     return render(request,'webuser/person_home_page_info.html',{'form':form})
 
 @login_required
@@ -198,18 +184,3 @@ def getuserinfo(request,userinfoid):
     user = User.objects.get(pk=userinfoid)
     return render(request,'webuser/userinfo.html',{'user':user})
 
-#加为好友
-@login_required
-def addfriends(request):
-    if request.method=='POST':
-        data = json.loads(request.POST.get('data'))
-        friendid = data['friendid']
-        actiontype = data['actiontype']
-        print(friendid,actiontype)
-        if actiontype == u'friend':
-            webuser = request.user.webuser
-            friend = Webuser.objects.get(pk=friendid)
-            webuser.friends.add(friend)
-        return HttpResponse('success')
-    else:
-        return HttpResponse('error')
