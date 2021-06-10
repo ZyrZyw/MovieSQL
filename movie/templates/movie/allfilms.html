@@ -99,34 +99,32 @@
                                         <div class="thumbnail movieList_con_cell_info">
                                             <span class="glyphicon glyphicon-star havesee"></span>
                                             <div class="post-thumbnail">
-                                            <a href="#" class="inimg" target="_blank" title="{{movie.moviename}}">
-                                                <img src="/media/img/{{movie.image}}" alt="{{movie.moviename}}"/>
+                                            <a href="#" class="inimg" target="_blank" title="{{movie.film_name}}">
+                                                <img src="/media/img/{{movie.image}}" alt="{{movie.film_name}}"/>
 
                                             </a>
                                                 <div class="img_title" style="display:none">
-                                                    <small class="imdbscore">{{movie.style}}</small><br>
-                                                    <small class="imdbscore">{{movie.country}}</small>
-                                                    <small class="imdbscore">{{movie.dateyear}}</small>
+                                                    <small class="imdbscore">{{movie.genres}}</small><br>
+                                                    <small class="imdbscore">{{movie.region}}</small>
+                                                    <small class="imdbscore">{{movie.issue}}</small>
                                                 </div>
                                             </div>
 
                                             <div class="caption movie-info">
-                                                <ul class="title"><a href="http://www.baidu.com">{{movie.moviename|slice:"13"}}</a></ul>
+                                                <ul class="title"><a href="http://www.baidu.com">{{movie.film_name|slice:"13"}}</a></ul>
                                                 <ul>
-                                                {% if movie.movieaddress%}
-                                                <a href="{{movie.movieaddress}}" target="_blank" class="btn btn-primary btn-sm btn-movie" role="button" id="{{movie.id}}">播放</a>
+                                                {% if movie.region%}
+                                                <a href="{{movie.region}}" target="_blank" class="btn btn-primary btn-sm btn-movie" role="button" id="{{movie.id}}">播放</a>
                                                 {% endif %}
-                                                {% if movie.downloadlink%}
-                                                <a href="{{movie.downloadlink}}" target="_blank"  class="btn btn-primary btn-sm" role="button">下载</a>
-                                                {% endif %}
+
                                                 </ul>
                                                 <ul class="others">
-                                                    <li class="in_category">{% ifequal movie.country ''%}top250{% endifequal %}{{movie.country}}</li>
+                                                    <li class="in_category">{% ifequal movie.region ''%}top250{% endifequal %}{{movie.region}}</li>
                                                     <li class="play">
-                                                        <span class="wpfp-span">{{movie.doubancounter}}</span>
+                                                        <span class="wpfp-span">{{movie.comment_count}}</span>
                                                     </li>
                                                     <li class="score">
-                                                        <span class="">{{movie.doubanscore}}</span>
+                                                        <span class="">{{movie.rate}}</span>
                                                     </li>
 
                                                 </ul>
@@ -175,46 +173,6 @@
                         <!--分页符结束-->
                     </div>
              </div>
-
-
-
-                <!--排行榜开始-->
-                 <div class="col-md-2">
-                    <div class="rankBar">
-                        <h5 class="rankBar_title">
-                            热播(手机观看)
-                        </h5>
-                        <ul class="rankBar_list">
-                            <li><a target="_blank" href="http://t.cn/RGGWv4A">美人鱼</a></li>
-                            <li><a target="_blank" href="http://t.cn/RbFx2ih">功夫熊猫3</a></li>
-                            <li><a target="_blank" href="http://t.cn/RGGWJ9D">叶问3</a></li>
-                            <li><a target="_blank" href="http://t.cn/RGGWv4w">西游记之三打白骨精</a></li>
-                            <li><a target="_blank" href="http://t.cn/RbFMw73">星球大战7</a></li>
-                            <li><a target="_blank" href="http://t.cn/RbFMw7T">唐人街探案</a></li>
-                        </ul>
-                    </div>
-                    <div class="rankBar">
-                        <h5 class="rankBar_title">
-                            IMDB排行榜
-                        </h5>
-                        <ul class="rankBar_list">
-                            {% for sidemovie in imdbmovie_list %}
-                            <li class="sider-movie"><a href="{{sidemovie.movieaddress}}" target="_blank" >{{sidemovie.moviename}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="rankBar">
-                        <h5 class="rankBar_title">
-                            美剧排行榜
-                        </h5>
-                        <ul class="rankBar_list">
-                            {% for usamovie in usamovie_list %}
-                            <li class="sider-movie"><a href="{{usamovie.movieaddress}}" target="_blank">{{usamovie.moviename}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                 </div>
-                 <!--排行榜结束-->
             </div>
         </div>
      </div>

@@ -626,4 +626,4 @@ INSERT INTO `userinfo` VALUES (1156306402, '糖野梨子', '123456');
 INSERT INTO `userinfo` VALUES (1328425253, 'googar', '123456'),
 (1300169418, 'killer queen', 'BiteTheDust'),
 (1308623558, '木大木大！', 'TheWorld!'),
-(1328425253, 'JoJo~', 'StandPowerWryyyy!');
+(1319347789, 'JoJo~', 'StandPowerWryyyy!');
