@@ -47,12 +47,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'djcelery',
     'webuser',
     'movie',
     'django_markdown',
     'questions',
     'webchat',
+    'actor_profile',
+    'company'
 )
 
 MIDDLEWARE = [

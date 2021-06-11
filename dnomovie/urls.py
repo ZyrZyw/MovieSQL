@@ -27,47 +27,14 @@ from dnomovie import views
 
 urlpatterns = [
     path('admin/',admin.site.urls),
-    
-    #url(r'^$','webuser.views.index',name='index'),
     path('',views.index,name='index'),
-    
-    #url(r'',include('webuser.urls')),
-    path('',include('webuser.urls')),
-    
-    #url(r'',include('movie.urls')),
-    path('',include('movie.urls')),
-    
-    #url(r'',include('questions.urls')),
-    path('',include('questions.urls')),
-    
-    #url(r'',include('webchat.urls')),
-    path('',include('webchat.urls')),
-    
-    #url('^markdown/', include('django_markdown.urls')),
+    path('user.',include('webuser.urls')),
+    path('movie/', include('movie.urls')),
+    path('',include('actor_profile.urls')),
+    path('company/', include('company.urls')),
+    path('questions',include('questions.urls')),
+    path('wechat/',include('webchat.urls')),
     path('markdown/',include('django_markdown.urls')),
-    
-    path('actor_profile/',views.actor_profile,name='actor_profile'),
-
-    path('actor_home/',views.actor_home,name='actor_home'),
-
-    path('actor_detail/',views.actor_detail,name='actor_detail'),
-
-    path('director_profile/', views.director_profile, name='director_profile'),
-
-    path('director_home/', views.director_home, name='director_home'),
-
-    path('director_detail/', views.director_detail, name='director_detail'),
-
-    path('company_profile/', views.company_profile, name='company_profile'),
-
-    path('company_home/', views.company_home, name='company_home'),
-
-    path('company_detail/', views.company_detail, name='company_detail')
-
-    
-    #url(r'^staticfiles/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS, 'show_indexes': True}),
-    #url(r'^staticfiles/(?P<path>.*)$',serve,{'document_root':settings.STATICFILES_DIRS, 'show_indexes': True}),
-
 ]
 
-urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -35,34 +35,3 @@ class UserScore(models.Model):
         user_name = UserInfo.objects.filter(user_id=self.user_id).first()
         film_name = FilmInfo.objects.filter(film_id=self.film_id).first()
         return u'{0} - {1}'.format(self.user.id,self.film_id)
-'''
-class MovieHistory(models.Model):
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE,) #观看用户
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,) #观看电影
-    date = models.DateTimeField(auto_now_add=True) #观看时间
-    marked = models.IntegerField(blank=True,null=True) #0表示观看，1表示收藏，2表示推荐
-    def __unicode__(self):
-        return u'{0}-{1}'.format(self.user.username,self.movie.moviename)
-
-
-class MovieComent(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,) #观看用户
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,) #观看电影
-    date = models.DateTimeField(auto_now_add=True) #评论时间
-    comment = MarkdownField() #评论
-
-    def __unicode__(self):
-        return u'{0} - {1}'.format(self.user.username,self.movie.moviename)
-
-class MovieSpider(models.Model):
-    movie_tag = models.CharField(max_length=512,blank=True,null=True)
-    moviename = models.CharField(max_length=64,blank=True,null=True)
-    moviedetailurl = models.CharField(max_length=512,blank=True,null=True)
-    movieimgurl = models.CharField(max_length=512,blank=True,null=True)
-    movieaddtime = models.DateTimeField(auto_now_add=True)
-    moviespiderornot = models.IntegerField(default=0)
-    country = models.CharField(max_length=64,blank=True,null=True)
-
-    def __unicode__(self):
-        return u'{0}-{1}'.format(self.moviename,self.movie_tag)
-'''

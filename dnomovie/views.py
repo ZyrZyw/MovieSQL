@@ -17,17 +17,7 @@ def index(request):
     user = request.user
     return render(request,'index.html')
 
-def actor_profile(request):
-    user = request.user
-    return render(request,'actor.html')
 
-def actor_home(request):
-    user = request.user
-    return render(request,'actor_home.html')
-
-def actor_detail(request):
-    user=request.user
-    return render(request,'actor_detail.html')
 
 def director_profile(request):
     user = request.user

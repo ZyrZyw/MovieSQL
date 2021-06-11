@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-#获得推荐电影列表和默认
 def getmovielist(request):
     type = 'suggest'
     after_range_num =5
@@ -22,7 +21,7 @@ def getmovielist(request):
     filterparam=request.GET.get('filterparam')
     if page is not None and page < 1:
         page=1
-    moviequery = FilmInfo.objects.filter()
+    moviequery = FilmInfo.objects.all()
     movie_list = moviequery
     if filtertype == 'style':
         movie_list = moviequery.filter(genres__contains=filterparam).order_by('-rate')
@@ -34,94 +33,12 @@ def getmovielist(request):
         else:
             movie_list = moviequery.filter(issue__contains=filterparam).order_by('-rate')
     random_num = random.randint(0,99)
-    usamovie_list = FilmInfo.objects.filter(region__contains='美').order_by('rate')[random_num:random_num+6]
     paginator = Paginator(movie_list,12)
     if page is not None and page>=after_range_num:
         page_range=paginator.page_range[page-after_range_num:page+before_range_num]
     elif page is not None:
         page_range = paginator.page_range[0:int(page)+before_range_num]
     return render(request,'movie/allfilms.html',locals())
-
-#获得最新的电影列表
-def getlatestmovielist(request):
-    type = 'latest'
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=request.GET.get('page')
-        if page is not None:
-            page =int(page)
-        filtertype=request.GET.get('filtertype')
-        filterparam=request.GET.get('filterparam')
-        if page is not None and page<1:
-            page=1
-    except ValueError:
-        page=1
-
-    if filtertype == 'style':
-        movie_list = FilmInfo.objects.filter(style__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    elif filtertype == 'area':
-        movie_list = FilmInfo.objects.filter(country__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    elif filtertype == 'year':
-        if filterparam=='20':
-            movie_list = FilmInfo.objects.filter(dateyear__lte='2001-12-20',movieaddress__isnull=False).order_by('-dateyear')
-        else:
-            movie_list = FilmInfo.objects.filter(dateyear__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    else:
-        movie_list = FilmInfo.objects.filter(movieaddress__isnull=False).order_by('-issue')
-    random_num = random.randint(0,99)
-    imdbmovie_list = FilmInfo.objects.filter(movieaddress__isnull=False).order_by('rate')[random_num:random_num+6]
-    usamovie_list = FilmInfo.objects.filter(region__contains='美').order_by('rate')[random_num:random_num+6]
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page is not None and page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    elif page is not None:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html',locals())
-#参加电影节电影
-def getfilmfestlist(request):
-    type = 'festival'
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=request.GET.get('page')
-        if page is not None:
-            page =int(page)
-        filtertype=request.GET.get('filtertype')
-        filterparam=request.GET.get('filterparam')
-        if page is not None and page<1:
-            page=1
-    except ValueError:
-        page=1
-    moviequery = FilmInfo.objects.filter(movieaddress__isnull=False,dateyear__contains=u'节')
-    movie_list = moviequery
-    if filtertype == 'style':
-        movie_list = moviequery.filter(genres__contains=filterparam).order_by('-score')
-    elif filtertype == 'area':
-        movie_list = moviequery.filter(region__contains=filterparam).order_by('-score')
-    elif filtertype == 'year':
-        if filterparam=='20':
-            movie_list = moviequery.filter(issue__lte='2001-12-20').order_by('-score')
-        else:
-            movie_list = moviequery.filter(issue__contains=filterparam).order_by('-score')
-    random_num = random.randint(0,99)
-    imdbmovie_list = FilmInfo.objects.filter(movieaddress__isnull=False).order_by('-doubanscore')[random_num:random_num+6]
-    usamovie_list = FilmInfo.objects.filter(country__contains='美',movieaddress__isnull=False).order_by('-doubanscore')[random_num:random_num+6]
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page is not None and page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    elif page is not None:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html',locals())
-
 
 def getmovielistbystyle(request,page=1):
     after_range_num =5
