@@ -1,0 +1,20 @@
+{% extends 'actor.html' %}
+
+{% block content %}
+
+    {% if notfound %}
+        <h2>{{notfound}}</h2>
+    {% else %}
+        <div class="card" style="width: 22rem;height:30rem;">
+            <img src="{{username.avatar_url}}" class="card-img-top" alt="演员照片">
+            <div class="card-body">
+                <h5 class="card-title">{{actor.name}}</h5>
+                <p class="card-text">演员姓名: {{actor.name}}</p>
+                <p class="card-text">出生日期: {{actor.birthday}}</p>
+                <p class="card-text">电影作品: {{actor.film}}</p>
+                <p class="card-text">出演角色: {{actor.role}}</p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

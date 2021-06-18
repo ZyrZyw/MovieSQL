@@ -1,0 +1,29 @@
+{% extends 'actor.html' %}
+
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 class="display-4">电影演员查询</h1>
+        <p class="lead">个人信息、代表作品、饰演角色等</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for actor_info in actor %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{actor_info.name}}</h5>
+                        <p class="card-text">{{actor_info.sex}} {{actor_info.birthday}} {{actor_info.birthplace}}</p>
+                        <a href="{% url 'actor_detail'%}">进一步了解该演员</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <p>{{api}}</p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'actor_home.html' %}
+
+{% block content %}
+
+    {% if notfound %}
+        <h2>{{notfound}}</h2>
+    {% else %}
+        <div class="card" style="width: 22rem;height:30rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{actor_info.name}}</h5>
+                <p class="card-text">演员姓名: {{actor_info.name}}</p>
+                <p class="card-text">出生日期: {{actor_info.birthday}}</p>
+
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

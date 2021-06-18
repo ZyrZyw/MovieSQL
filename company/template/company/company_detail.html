@@ -1,0 +1,20 @@
+{% extends 'company.html' %}
+
+{% block content %}
+
+    {% if notfound %}
+        <h2>{{notfound}}</h2>
+    {% else %}
+        <div class="card" style="width: 22rem;height:30rem;">
+            <img src="{{username.avatar_url}}" class="card-img-top" alt="公司logo">
+            <div class="card-body">
+                <h5 class="card-title">{{company.name}}</h5>
+                <p class="card-text">公司编号: {{company.id}}</p>
+                <p class="card-text">公司名称: {{company.name}}</p>
+                <p class="card-text">所在城市: {{company.city}}</p>
+                <p class="card-text">出品电影: {{company.film}}</p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
